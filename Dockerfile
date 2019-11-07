@@ -1,4 +1,4 @@
-FROM tomcat
+FROM tomcat:jdk11
 RUN apt-get update && apt-get install -y libreoffice --no-install-recommends && apt-get clean; \
  rm -rf /usr/local/tomcat/webapps/*; \
  mkdir -p /usr/local/docroot/output
