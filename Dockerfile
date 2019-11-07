@@ -3,6 +3,7 @@ RUN apt-get update && apt-get install -y libreoffice --no-install-recommends && 
  rm -rf /usr/local/tomcat/webapps/*; \
  mkdir -p /usr/local/docroot/output
 EXPOSE 8080
+ENV JAVA_OPTS='-Xms512m -Xmx1g'
 ENTRYPOINT ["sh", "./entrypoint.sh"]
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
