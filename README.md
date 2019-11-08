@@ -7,8 +7,13 @@ docker build -t buildvu .
 ```
 
 ## Run container
+### Trial Version
 ```
 docker run -p 8080:8080 --env TOKEN=<YOUR TRIAL TOKEN> buildvu
+```
+### Full Version
+```
+docker run -p 8080:8080 --env USERNAME=<YOUR USERNAME> --env PASSWORD=<YOUR PASSWORD> --env PRODUCT=<[buildvu|buildvu_html|buildvu_svg]> buildvu
 ```
 The BuildVu API can be reached on `0.0.0.0:8080/buildvu`.
 
