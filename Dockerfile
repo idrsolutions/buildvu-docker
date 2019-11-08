@@ -13,6 +13,6 @@ RUN \
  rm -rf noto
 EXPOSE 8080
 ENV JAVA_OPTS='-Xms512m -Xmx1g'
-ENTRYPOINT ["sh", "./entrypoint.sh"]
-COPY entrypoint.sh .
-RUN chmod +x entrypoint.sh
+ENTRYPOINT ["python3", "-u", "./entrypoint.py"]
+COPY entrypoint.py .
+RUN chmod +x entrypoint.py
