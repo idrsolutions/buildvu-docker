@@ -11,7 +11,8 @@ RUN \
  chmod a+r /usr/share/fonts/opentype/noto/ ; \
  fc-cache -f -v; \
  rm -rf noto
-EXPOSE 8080
+RUN ["/bin/bash", "-c", "value=`cat /usr/local/tomcat/conf/server.xml` && echo \"${value//8080/80}\" >| /usr/local/tomcat/conf/server.xml"]
+EXPOSE 80
 ENV JAVA_OPTS='-Xms512m -Xmx1g'
 ENTRYPOINT ["python3", "-u", "./entrypoint.py"]
 COPY entrypoint.py .
