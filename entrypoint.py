@@ -10,7 +10,7 @@ redownload = 'REDOWNLOAD' in os.environ
 def download_trial_war():
     print('Downloading BuildVu trial...')
     token = os.environ['TOKEN']
-    url = 'https://files.idrsolutions.com/ed-war-test/buildvu-microservice.war?token=' + token
+    url = 'https://files.idrsolutions.com/dl/buildvu/trial/buildvu-microservice.war?token=' + token
     with request.urlopen(url) as response:
         handle_response(response)
 
