@@ -66,6 +66,17 @@ def war_exists():
     return os.path.isfile('/usr/local/tomcat/webapps/ROOT.war')
 
 
+def ssl_certificates_provided():
+    return os.path.isdir('/opt/ssl') and os.path.isfile('/opt/ssl/server.crt') and os.path.isfile('/opt/ssl/server.key')
+
+
+if ssl_certificates_provided():
+    os.rename('/usr/local/tomcat/conf/web.xml', '/usr/local/tomcat/conf/http-web.xml')
+    os.rename('/usr/local/tomcat/conf/https-web.xml', '/usr/local/tomcat/conf/web.xml')
+    os.rename('/usr/local/tomcat/conf/server.xml', '/usr/local/tomcat/conf/http-server.xml')
+    os.rename('/usr/local/tomcat/conf/https-server.xml', '/usr/local/tomcat/conf/server.xml')
+
+
 if 'BUILDVU_USER' not in os.environ:
     os.environ['BUILDVU_USER'] = 'buildvu'
     print('BUILDVU_USER not supplied. Using default username: ' + os.environ['BUILDVU_USER'])

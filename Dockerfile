@@ -17,6 +17,8 @@ ENV JAVA_OPTS='-Xms512m -Xmx1g'
 ENTRYPOINT ["python3", "-u", "./entrypoint.py"]
 COPY tomcat-users.xml ./conf
 COPY web.xml ./conf
+COPY https-server.xml ./conf
+COPY https-web.xml ./conf
 COPY setenv.sh ./bin
 RUN chmod +x ./bin/setenv.sh
 COPY entrypoint.py .
