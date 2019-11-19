@@ -3,6 +3,8 @@ import os
 from urllib import request
 from urllib import parse
 import subprocess
+import random
+import string
 
 redownload = 'REDOWNLOAD' in os.environ
 
@@ -63,6 +65,14 @@ def new_war_required():
 def war_exists():
     return os.path.isfile('/usr/local/tomcat/webapps/ROOT.war')
 
+
+if 'BUILDVU_USER' not in os.environ:
+    os.environ['BUILDVU_USER'] = 'buildvu'
+    print('BUILDVU_USER not supplied. Using default username: ' + os.environ['BUILDVU_USER'])
+
+if 'BUILDVU_PASSWORD' not in os.environ:
+    os.environ['BUILDVU_PASSWORD'] = ''.join(random.choice(string.ascii_letters) for i in range(10))
+    print('BUILDVU_PASSWORD not supplied. Using generated password: ' + os.environ['BUILDVU_PASSWORD'])
 
 if new_war_required():
     if is_trial() and is_full():
