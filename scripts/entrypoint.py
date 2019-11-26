@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 import os
-from urllib import request
-from urllib import parse
-import subprocess
 import random
 import string
+import subprocess
+from urllib import parse
+from urllib import request
 
 redownload = 'REDOWNLOAD' in os.environ
 
@@ -67,7 +67,9 @@ def war_exists():
 
 
 def ssl_certificates_provided():
-    return os.path.isdir('/opt/ssl') and os.path.isfile('/opt/ssl/server.crt') and os.path.isfile('/opt/ssl/server.key')
+    ssl_dir = '/opt/ssl/'
+    ssl_files = [ssl_dir + filename for filename in ['server.crt', 'server.key', 'ca_bundle.crt']]
+    return all(map(os.path.isfile, ssl_files))
 
 
 if ssl_certificates_provided():

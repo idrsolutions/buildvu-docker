@@ -104,6 +104,7 @@
         <SSLHostConfig>
             <Certificate certificateKeyFile="/opt/ssl/server.key"
                          certificateFile="/opt/ssl/server.crt"
+                         certificateChainFile="/opt/ssl/ca_bundle.crt"
                          type="RSA" />
         </SSLHostConfig>
     </Connector>
