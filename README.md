@@ -17,15 +17,15 @@ docker run -p 80:80 --env USERNAME=<YOUR USERNAME> --env PASSWORD=<YOUR PASSWORD
 ```
 A username and password will be generated for you and printed on the console. The BuildVu API can be reached on `0.0.0.0/buildvu`. 
 
-##[Recommended] Enabling HTTPS
+## [Recommended] Enabling HTTPS
 For production use, we strongly recommend enabling HTTPS encryption. The container is pre-configured to switch to HTTPS
-if it finds the files `server.crt` and `server.key` in the `/opt/ssl/` directory. All you need to do is mount a directory
-containing your certificate and key like this:
+if it finds an SSL certificate, private key and certificate chain in the `/opt/ssl/` directory.  All you need to do is mount a directory
+containing files called `certificate.crt`, `private.key` and `ca_bundle.crt`. like this:
 ```
-docker run -p 80:80 -p 443:443 --env TOKEN=<YOUR TRIAL TOKEN> --mount "source=/path/to/ssl,target=/opt/ssl,type=bind,readonly" idrsolutions/buildvu
+docker run -p 80:80 -p 443:443 --env TOKEN=<YOUR TRIAL TOKEN> --mount "source=/local/path/to/ssl/directory,target=/opt/ssl,type=bind,readonly" idrsolutions/buildvu
 ```
 
-##[Optional] Define your own credentials
+## [Optional] Define your own credentials
 If you wish to set your own username and/or password for the service, you can do so by providing additional environment
 variables to the container as follows:
 

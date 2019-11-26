@@ -102,8 +102,8 @@
                maxThreads="150" SSLEnabled="true" >
         <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
         <SSLHostConfig>
-            <Certificate certificateKeyFile="/opt/ssl/server.key"
-                         certificateFile="/opt/ssl/server.crt"
+            <Certificate certificateKeyFile="/opt/ssl/private.key"
+                         certificateFile="/opt/ssl/certificate.crt"
                          certificateChainFile="/opt/ssl/ca_bundle.crt"
                          type="RSA" />
         </SSLHostConfig>

@@ -68,7 +68,7 @@ def war_exists():
 
 def ssl_certificates_provided():
     ssl_dir = '/opt/ssl/'
-    ssl_files = [ssl_dir + filename for filename in ['server.crt', 'server.key', 'ca_bundle.crt']]
+    ssl_files = [ssl_dir + filename for filename in ['certificate.crt', 'private.key', 'ca_bundle.crt']]
     return all(map(os.path.isfile, ssl_files))
 
 
