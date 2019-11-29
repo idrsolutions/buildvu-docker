@@ -5,8 +5,18 @@ import string
 import subprocess
 from urllib import parse
 from urllib import request
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+TEMPLATE_DIRECTORY = 'templates'
 redownload = 'REDOWNLOAD' in os.environ
+
+
+def generate_configs():
+    env = Environment(loader=FileSystemLoader(TEMPLATE_DIRECTORY), autoescape=select_autoescape(['xml']))
+    for template_name in os.listdir(TEMPLATE_DIRECTORY):
+        t = env.get_template(template_name)
+        with open('conf/' + template_name, 'w') as conf:
+            conf.write(t.render(https_enabled=ssl_certificates_provided(), auth_enabled=auth_credentials_provided()))
 
 
 def download_trial_war():
@@ -72,20 +82,9 @@ def ssl_certificates_provided():
     return all(map(os.path.isfile, ssl_files))
 
 
-if ssl_certificates_provided():
-    os.rename('/usr/local/tomcat/conf/web.xml', '/usr/local/tomcat/conf/http-web.xml')
-    os.rename('/usr/local/tomcat/conf/https-web.xml', '/usr/local/tomcat/conf/web.xml')
-    os.rename('/usr/local/tomcat/conf/server.xml', '/usr/local/tomcat/conf/http-server.xml')
-    os.rename('/usr/local/tomcat/conf/https-server.xml', '/usr/local/tomcat/conf/server.xml')
+def auth_credentials_provided():
+    return all(x in os.environ for x in ['BUILDVU_USER', 'BUILDVU_PASSWORD'])
 
-
-if 'BUILDVU_USER' not in os.environ:
-    os.environ['BUILDVU_USER'] = 'buildvu'
-    print('BUILDVU_USER not supplied. Using default username: ' + os.environ['BUILDVU_USER'])
-
-if 'BUILDVU_PASSWORD' not in os.environ:
-    os.environ['BUILDVU_PASSWORD'] = ''.join(random.choice(string.ascii_letters) for i in range(10))
-    print('BUILDVU_PASSWORD not supplied. Using generated password: ' + os.environ['BUILDVU_PASSWORD'])
 
 if new_war_required():
     if is_trial() and is_full():
@@ -111,6 +110,7 @@ if new_war_required():
         print('Please provide a valid trial token or username/password/product combination to download BuildVu')
 
 if war_exists():
+    generate_configs()
     try:
         subprocess.run(['catalina.sh', 'run'], stdout=subprocess.PIPE, universal_newlines=True)
     except KeyboardInterrupt:

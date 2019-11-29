@@ -1,5 +1,6 @@
 FROM tomcat:jdk11
-RUN apt-get update && apt-get install -y libreoffice unzip --no-install-recommends && apt-get clean; \
+RUN apt-get update && apt-get install -y libreoffice unzip python3-pip --no-install-recommends && apt-get clean; \
+ pip3 install jinja2; \
  rm -rf /usr/local/tomcat/webapps/*; \
  mkdir -p /usr/local/docroot/output;
 RUN \
@@ -16,5 +17,6 @@ EXPOSE 80
 ENV JAVA_OPTS='-Xms512m -Xmx1g'
 ENTRYPOINT ["python3", "-u", "./entrypoint.py"]
 COPY conf/* ./conf/
+COPY templates/* ./templates/
 COPY scripts/setenv.sh ./bin
 COPY scripts/entrypoint.py .
