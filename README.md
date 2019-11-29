@@ -13,9 +13,8 @@ docker run -p 80:80 --env TOKEN=<YOUR TRIAL TOKEN> idrsolutions\buildvu
 ```
 ### Full Version
 ```
-docker run -p 80:80 --env USERNAME=<YOUR USERNAME> --env PASSWORD=<YOUR PASSWORD> --env PRODUCT=<[buildvu|buildvu_html|buildvu_svg]> idrsolutions\buildvu
+docker run -p 80:80 --env LICENSE_USERNAME=<YOUR USERNAME> --env LICENSE_PASSWORD=<YOUR PASSWORD> --env PRODUCT=<[buildvu|buildvu_html|buildvu_svg]> idrsolutions\buildvu
 ```
-A username and password will be generated for you and printed on the console. The BuildVu API can be reached on `0.0.0.0/buildvu`. 
 
 ## [Recommended] Enabling HTTPS
 For production use, we strongly recommend enabling HTTPS encryption. The container is pre-configured to switch to HTTPS
@@ -25,17 +24,17 @@ containing files called `certificate.crt`, `private.key` and `ca_bundle.crt`. li
 docker run -p 80:80 -p 443:443 --env TOKEN=<YOUR TRIAL TOKEN> --mount "source=/local/path/to/ssl/directory,target=/opt/ssl,type=bind,readonly" idrsolutions/buildvu
 ```
 
-## [Optional] Define your own credentials
-If you wish to set your own username and/or password for the service, you can do so by providing additional environment
+## [Optional] Define auth credentials
+If you wish to set a username and password for the service, you can do so by providing additional environment
 variables to the container as follows:
 
 ### Trial Version
 ```
-docker run -p 80:80 --env TOKEN=<YOUR TRIAL TOKEN> --env BUILDVU_USER=<username> --env BUILDVU_PASSWORD=<password> idrsolutions\buildvu
+docker run -p 80:80 --env TOKEN=<YOUR TRIAL TOKEN> --env ACCESS_USERNAME=<username> --env ACCESS_PASSWORD=<password> idrsolutions\buildvu
 ```
 ### Full Version
 ```
-docker run -p 80:80 --env USERNAME=<YOUR USERNAME> --env PASSWORD=<YOUR PASSWORD> --env PRODUCT=<[buildvu|buildvu_html|buildvu_svg]> --env BUILDVU_USER=<username> --env BUILDVU_PASSWORD=<password> idrsolutions\buildvu
+docker run -p 80:80 --env LICENSE_USERNAME=<YOUR USERNAME> --env LICENSE_PASSWORD=<YOUR PASSWORD> --env PRODUCT=<[buildvu|buildvu_html|buildvu_svg]> --env ACCESS_USERNAME=<username> --env ACCESS_PASSWORD=<password> idrsolutions\buildvu
 ```
 
 #### [Advanced] Adding multiple users

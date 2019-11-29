@@ -1,14 +1,11 @@
 #!/usr/bin/python3
 import os
-import random
-import string
 import subprocess
 from urllib import parse
 from urllib import request
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 TEMPLATE_DIRECTORY = 'templates'
-redownload = 'REDOWNLOAD' in os.environ
 
 
 def generate_configs():
@@ -28,8 +25,8 @@ def download_trial_war():
 
 
 def download_full_war(url):
-    username = os.environ['USERNAME']
-    password = os.environ['PASSWORD']
+    username = os.environ['LICENSE_USERNAME']
+    password = os.environ['LICENSE_PASSWORD']
     data = parse.urlencode({'username': username, 'password': password}).encode('ascii')
     with request.urlopen(url, data) as response:
         handle_response(response)
@@ -65,7 +62,7 @@ def is_trial():
 
 
 def is_full():
-    return all(x in os.environ for x in ['USERNAME', 'PASSWORD', 'PRODUCT'])
+    return all(x in os.environ for x in ['LICENSE_USERNAME', 'LICENSE_PASSWORD', 'PRODUCT'])
 
 
 def new_war_required():
@@ -83,14 +80,14 @@ def ssl_certificates_provided():
 
 
 def auth_credentials_provided():
-    return all(x in os.environ for x in ['BUILDVU_USER', 'BUILDVU_PASSWORD'])
+    return all(x in os.environ for x in ['ACCESS_USERNAME', 'ACCESS_PASSWORD'])
 
 
 if new_war_required():
     if is_trial() and is_full():
-        print('Mixing trial TOKENs and full-version USERNAME/PASSWORD combination is not supported.')
+        print('Mixing trial TOKENs and full-version LICENSE_USERNAME/LICENSE_PASSWORD combination is not supported.')
         print('If you have purchased a license, please remove the TOKEN argument to use the full version.')
-        print('If you wish to trial BuildVu, please remove any USERNAME, PASSWORD or PRODUCT argument.')
+        print('If you wish to trial BuildVu, please remove any LICENSE_USERNAME, LICENSE_PASSWORD or PRODUCT argument.')
         exit(2)
     elif is_full():
         product = os.environ['PRODUCT'].lower()
@@ -102,7 +99,7 @@ if new_war_required():
             download_buildvu_svg()
         else:
             print('Error: Unrecognised product "' + product + '".')
-            print('Valid options are "buildvu", "buildvu_html" or "buildvu_svg.')
+            print('Valid options are "buildvu", "buildvu_html" or "buildvu_svg".')
             exit(2)
     elif is_trial():
         download_trial_war()
