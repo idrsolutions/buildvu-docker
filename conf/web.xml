@@ -4725,8 +4725,17 @@
 
     <security-constraint>
         <web-resource-collection>
+            <web-resource-name>Whitelist</web-resource-name>
+            <url-pattern>/*</url-pattern>
+            <http-method>OPTIONS</http-method>
+        </web-resource-collection>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
             <web-resource-name>Entire Application</web-resource-name>
             <url-pattern>/*</url-pattern>
+            <http-method-omission>OPTIONS</http-method-omission>
         </web-resource-collection>
         <auth-constraint>
             <role-name>buildvu-user</role-name>
