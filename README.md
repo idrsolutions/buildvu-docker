@@ -3,17 +3,17 @@
 ## Build image
 ```
 cd docker
-docker build -t idrsolutions\buildvu . 
+docker build -t idrsolutions/buildvu . 
 ```
 
 ## Run container
 ### Trial Version
 ```
-docker run -p 80:80 --env TOKEN=<YOUR TRIAL TOKEN> idrsolutions\buildvu
+docker run -p 80:80 --env TOKEN=<YOUR TRIAL TOKEN> idrsolutions/buildvu
 ```
 ### Full Version
 ```
-docker run -p 80:80 --env LICENSE_USERNAME=<YOUR USERNAME> --env LICENSE_PASSWORD=<YOUR PASSWORD> --env PRODUCT=<[buildvu|buildvu_html|buildvu_svg]> idrsolutions\buildvu
+docker run -p 80:80 --env LICENSE_USERNAME=<YOUR USERNAME> --env LICENSE_PASSWORD=<YOUR PASSWORD> --env PRODUCT=<[buildvu|buildvu_html|buildvu_svg]> idrsolutions/buildvu
 ```
 
 ## [Recommended] Enabling HTTPS
@@ -30,11 +30,11 @@ variables to the container as follows:
 
 ### Trial Version
 ```
-docker run -p 80:80 --env TOKEN=<YOUR TRIAL TOKEN> --env ACCESS_USERNAME=<username> --env ACCESS_PASSWORD=<password> idrsolutions\buildvu
+docker run -p 80:80 --env TOKEN=<YOUR TRIAL TOKEN> --env ACCESS_USERNAME=<username> --env ACCESS_PASSWORD=<password> idrsolutions/buildvu
 ```
 ### Full Version
 ```
-docker run -p 80:80 --env LICENSE_USERNAME=<YOUR USERNAME> --env LICENSE_PASSWORD=<YOUR PASSWORD> --env PRODUCT=<[buildvu|buildvu_html|buildvu_svg]> --env ACCESS_USERNAME=<username> --env ACCESS_PASSWORD=<password> idrsolutions\buildvu
+docker run -p 80:80 --env LICENSE_USERNAME=<YOUR USERNAME> --env LICENSE_PASSWORD=<YOUR PASSWORD> --env PRODUCT=<[buildvu|buildvu_html|buildvu_svg]> --env ACCESS_USERNAME=<username> --env ACCESS_PASSWORD=<password> idrsolutions/buildvu
 ```
 
 #### [Advanced] Adding multiple users
