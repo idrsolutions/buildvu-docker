@@ -36,7 +36,7 @@ if war_exists():
         exit()
 else:
     print('Error: BuildVu WAR file is missing.')
-    print('Please mount your BuildVu Microservice, details on how to do this can be found here.')
+    print('Please mount your BuildVu Microservice, details can be found at the following link.')
     print('https://docs.idrsolutions.com/buildvu/docker-deployment/')
     exit(1)
 
