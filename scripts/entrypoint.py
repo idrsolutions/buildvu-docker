@@ -35,10 +35,9 @@ if war_exists():
     except KeyboardInterrupt:
         exit()
 else:
-    print('Error: BuildVu WAR file is missing. Please mount your BuildVu Microservice, example shown below')
-    print('docker run -p 80:80 \\')
-    print('--mount "source=/PATH/TO/buildvu-microservice.war,target=/usr/local/tomcat/webapps/ROOT.war,type=bind" \\')
-    print('idrsolutions/buildvu')
+    print('Error: BuildVu WAR file is missing.')
+    print('Please mount your BuildVu Microservice, details on how to do this can be found here.')
+    print('https://docs.idrsolutions.com/buildvu/docker-deployment/')
     exit(1)
 
 
