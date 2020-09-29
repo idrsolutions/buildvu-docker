@@ -1,8 +1,17 @@
 #!/usr/bin/python3
 import os
 import subprocess
-import random
-import string
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+TEMPLATE_DIRECTORY = 'templates'
+
+
+def generate_configs():
+    env = Environment(loader=FileSystemLoader(TEMPLATE_DIRECTORY), autoescape=select_autoescape(['xml']))
+    for template_name in os.listdir(TEMPLATE_DIRECTORY):
+        t = env.get_template(template_name)
+        with open('conf/' + template_name, 'w') as conf:
+            conf.write(t.render(https_enabled=ssl_certificates_provided(), auth_enabled=auth_credentials_provided()))
 
 
 def war_exists():
@@ -10,26 +19,17 @@ def war_exists():
 
 
 def ssl_certificates_provided():
-    return os.path.isdir('/opt/ssl') and os.path.isfile('/opt/ssl/server.crt') and os.path.isfile('/opt/ssl/server.key')
+    ssl_dir = '/opt/ssl/'
+    ssl_files = [ssl_dir + filename for filename in ['certificate.crt', 'private.key', 'ca_bundle.crt']]
+    return all(map(os.path.isfile, ssl_files))
 
 
-if ssl_certificates_provided():
-    os.rename('/usr/local/tomcat/conf/web.xml', '/usr/local/tomcat/conf/http-web.xml')
-    os.rename('/usr/local/tomcat/conf/https-web.xml', '/usr/local/tomcat/conf/web.xml')
-    os.rename('/usr/local/tomcat/conf/server.xml', '/usr/local/tomcat/conf/http-server.xml')
-    os.rename('/usr/local/tomcat/conf/https-server.xml', '/usr/local/tomcat/conf/server.xml')
-
-
-if 'BUILDVU_USER' not in os.environ:
-    os.environ['BUILDVU_USER'] = 'buildvu'
-    print('BUILDVU_USER not supplied. Using default username: ' + os.environ['BUILDVU_USER'])
-
-if 'BUILDVU_PASSWORD' not in os.environ:
-    os.environ['BUILDVU_PASSWORD'] = ''.join(random.choice(string.ascii_letters) for i in range(10))
-    print('BUILDVU_PASSWORD not supplied. Using generated password: ' + os.environ['BUILDVU_PASSWORD'])
+def auth_credentials_provided():
+    return all(x in os.environ for x in ['ACCESS_USERNAME', 'ACCESS_PASSWORD'])
 
 
 if war_exists():
+    generate_configs()
     try:
         subprocess.run(['catalina.sh', 'run'], stdout=subprocess.PIPE, universal_newlines=True)
     except KeyboardInterrupt:
