@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 import os
 import subprocess
-from urllib import parse
-from urllib import request
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 TEMPLATE_DIRECTORY = 'templates'
@@ -14,59 +12,6 @@ def generate_configs():
         t = env.get_template(template_name)
         with open('conf/' + template_name, 'w') as conf:
             conf.write(t.render(https_enabled=ssl_certificates_provided(), auth_enabled=auth_credentials_provided()))
-
-
-def download_trial_war():
-    print('Downloading BuildVu trial...')
-    token = os.environ['TOKEN']
-    url = 'https://files.idrsolutions.com/dl/buildvu/trial/buildvu-microservice.war?token=' + token
-    with request.urlopen(url) as response:
-        handle_response(response)
-
-
-def download_full_war(url):
-    username = os.environ['LICENSE_USERNAME']
-    password = os.environ['LICENSE_PASSWORD']
-    data = parse.urlencode({'username': username, 'password': password}).encode('ascii')
-    with request.urlopen(url, data) as response:
-        handle_response(response)
-
-
-def handle_response(response):
-    if response.status == 200:
-        with open('/usr/local/tomcat/webapps/ROOT.war', 'wb') as f:
-            f.write(response.read())
-        print('Download successful')
-    else:
-        print('Download failed')
-        print(response.read().decode())
-
-
-def download_buildvu():
-    print('Downloading BuildVu...')
-    download_full_war('https://files.idrsolutions.com/dl/buildvu/full/buildvu-microservice.war')
-
-
-def download_buildvu_html():
-    print('Downloading BuildVu HTML...')
-    download_full_war('https://files.idrsolutions.com/dl/buildvu-html/full/buildvu-microservice.war')
-
-
-def download_buildvu_svg():
-    print('Downloading BuildVu SVG...')
-    download_full_war('https://files.idrsolutions.com/dl/buildvu-svg/full/buildvu-microservice.war')
-
-
-def is_trial():
-    return 'TOKEN' in os.environ
-
-
-def is_full():
-    return all(x in os.environ for x in ['LICENSE_USERNAME', 'LICENSE_PASSWORD', 'PRODUCT'])
-
-
-def new_war_required():
-    return ('REDOWNLOAD' in os.environ) or not war_exists()
 
 
 def war_exists():
@@ -83,29 +28,6 @@ def auth_credentials_provided():
     return all(x in os.environ for x in ['ACCESS_USERNAME', 'ACCESS_PASSWORD'])
 
 
-if new_war_required():
-    if is_trial() and is_full():
-        print('Mixing trial TOKENs and full-version LICENSE_USERNAME/LICENSE_PASSWORD combination is not supported.')
-        print('If you have purchased a license, please remove the TOKEN argument to use the full version.')
-        print('If you wish to trial BuildVu, please remove any LICENSE_USERNAME, LICENSE_PASSWORD or PRODUCT argument.')
-        exit(2)
-    elif is_full():
-        product = os.environ['PRODUCT'].lower()
-        if product == 'buildvu':
-            download_buildvu()
-        elif product == 'buildvu_html':
-            download_buildvu_html()
-        elif product == 'buildvu_svg':
-            download_buildvu_svg()
-        else:
-            print('Error: Unrecognised product "' + product + '".')
-            print('Valid options are "buildvu", "buildvu_html" or "buildvu_svg".')
-            exit(2)
-    elif is_trial():
-        download_trial_war()
-    else:
-        print('Please provide a valid trial token or username/password/product combination to download BuildVu')
-
 if war_exists():
     generate_configs()
     try:
@@ -114,6 +36,8 @@ if war_exists():
         exit()
 else:
     print('Error: BuildVu WAR file is missing.')
+    print('Please mount your BuildVu Microservice, details can be found at the following link.')
+    print('https://docs.idrsolutions.com/buildvu/docker-deployment/')
     exit(1)
 
 
