@@ -103,7 +103,7 @@
     {%- if https_enabled %}
     <Connector port="443" protocol="org.apache.coyote.http11.Http11AprProtocol"
                maxThreads="150" SSLEnabled="true" >
-        <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+<!--        <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />-->
         <SSLHostConfig>
             <Certificate certificateKeyFile="/opt/ssl/private.key"
                          certificateFile="/opt/ssl/certificate.crt"
