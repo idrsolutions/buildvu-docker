@@ -4,9 +4,9 @@ BuildVu is a PDF to HTML or SVG conversion tool to allow you to display document
 
 ## Getting Started ##
 
-In order to use the BuildVu Docker image you will need a license to access the BuildVu war file. If you have not got a license yet, you can find our [free trial or contact us here](https://www.idrsolutions.com/buildvu/pricing).
+In order to use the BuildVu Docker image you will need a license to access the BuildVu war file. If you have not got a license yet, you can [sign up for a free trial](https://www.idrsolutions.com/buildvu/trial-download).
 
-Once you have access, you can get and run the docker image with the following commands.
+Once you have the BuildVu war file, you can pull and run the docker image with the following commands:
 ```bash
 docker pull idrsolutions/buildvu:latest
 docker run -p 80:80 --mount "source=/path/to/war/buildvu-microservice.war,target=/usr/local/tomcat/webapps/ROOT.war,type=bind" idrsolutions/buildvu
@@ -24,5 +24,6 @@ To build the image from source, use the following steps.
 
 ## Documentation ## 
 
-[IDRSolutions BuildVu Cloud Support Page](https://support.idrsolutions.com/buildvu/tutorials/cloud/).  
-[IDRSolutions BuildVu Docker Support Page](https://support.idrsolutions.com/buildvu/tutorials/cloud/docker).
+[BuildVu Cloud Documentation](https://support.idrsolutions.com/buildvu/tutorials/cloud/)
+[BuildVu Docker Documentation](https://support.idrsolutions.com/buildvu/tutorials/cloud/docker)
+[Contact IDRsolutions](https://www.idrsolutions.com/contact-us)
