@@ -24,6 +24,6 @@ To build the image from source, use the following steps.
 
 ## Documentation ## 
 
-[BuildVu Cloud Documentation](https://support.idrsolutions.com/buildvu/tutorials/cloud/)
-[BuildVu Docker Documentation](https://support.idrsolutions.com/buildvu/tutorials/cloud/docker)
+[BuildVu Cloud Documentation](https://support.idrsolutions.com/buildvu/tutorials/cloud/)  
+[BuildVu Docker Documentation](https://support.idrsolutions.com/buildvu/tutorials/cloud/docker)  
 [Contact IDRsolutions](https://www.idrsolutions.com/contact-us)
