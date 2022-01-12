@@ -5,8 +5,8 @@ RUN apt-get update && apt-get install -y libreoffice unzip python3-pip --no-inst
  mkdir -p /usr/local/docroot/output;
 RUN \
  mkdir noto ;\
- wget -O noto/noto.zip https://noto-website-2.storage.googleapis.com/pkgs/Noto-hinted.zip; \
- unzip noto/noto.zip -d noto/ ; \
+ wget -q -O noto/noto.zip https://noto-website-2.storage.googleapis.com/pkgs/Noto-hinted.zip; \
+ unzip -q noto/noto.zip -d noto/ ; \
  mkdir -p /usr/share/fonts/opentype/noto/ ; \
  mv noto/*otf /usr/share/fonts/opentype/noto/ ; \
  chmod a+r /usr/share/fonts/opentype/noto/ ; \
