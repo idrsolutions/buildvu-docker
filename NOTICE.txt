@@ -1,0 +1,7 @@
+                        BuildVu Docker Microservice
+                        ===========================
+
+Please visit the IDRSolutions BuildVu microservice for the war file to use with this docker image:
+  * https://github.com/idrsolutions/buildvu-microservice-example
+
+Copyright 2019 - 2023 IDRsolutions
