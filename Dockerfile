@@ -16,7 +16,6 @@ RUN ["/bin/bash", "-c", "value=`cat /usr/local/tomcat/conf/server.xml` && echo \
 EXPOSE 80
 ENV JAVA_OPTS='-Xms512m -Xmx1g'
 ENTRYPOINT ["python3", "-u", "./entrypoint.py"]
-COPY conf/* ./conf/
 COPY templates/* ./templates/
 COPY scripts/setenv.sh ./bin
 COPY scripts/entrypoint.py .

@@ -19,6 +19,7 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
               version="1.0">
+    <role rolename="buildvu-user"/>
     <user username="${buildvu_user}" password="${buildvu_password}" roles="buildvu-user"/>
 <!--
   NOTE:  By default, no user is included in the "manager-gui" role required
