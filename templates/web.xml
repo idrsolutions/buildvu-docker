@@ -4723,11 +4723,33 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    {%- if auth_enabled %}
+    <!--
+    Allow OPTIONS (preflight) requests without authentication because web browsers don't send credentials with
+    preflight. This prevents CORS errors by allowing the CORS response headers to be seen.
+    -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>CORS Preflight</web-resource-name>
+            <url-pattern>/*</url-pattern>
+            <http-method>OPTIONS</http-method>
+        </web-resource-collection>
+        {%- if https_enabled %}
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+        {% endif %}
+    </security-constraint>
+    {% endif %}
+
     {%- if auth_enabled or https_enabled %}
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Entire Application</web-resource-name>
             <url-pattern>/*</url-pattern>
+            {%- if auth_enabled %}
+            <http-method-omission>OPTIONS</http-method-omission>
+            {% endif %}
         </web-resource-collection>
         {%- if auth_enabled %}
         <auth-constraint>
@@ -4741,7 +4763,11 @@
         {% endif %}
     </security-constraint>
     {% endif %}
+
     {%- if auth_enabled %}
+    <security-role>
+        <role-name>buildvu-user</role-name>
+    </security-role>
     <login-config>
         <auth-method>BASIC</auth-method>
         <realm-name>BuildVu</realm-name>
