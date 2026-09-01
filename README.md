@@ -24,6 +24,6 @@ To build the image from source, use the following steps.
 
 ## Documentation ## 
 
-[BuildVu Cloud Documentation](https://support.idrsolutions.com/buildvu/host-a-web-service/)  
-[BuildVu Docker Documentation](https://support.idrsolutions.com/buildvu/host-docker-web-service/)  
+[BuildVu Cloud Documentation](https://www.idrsolutions.com/docs/buildvu/host-a-web-service/)  
+[BuildVu Docker Documentation](https://www.idrsolutions.com/docs/buildvu/host-docker-web-service/)  
 [Contact IDRsolutions](https://www.idrsolutions.com/contact-us)
