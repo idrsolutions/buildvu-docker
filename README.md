@@ -1,6 +1,6 @@
 # BuildVu Docker Image #
 
-BuildVu is a PDF to HTML or SVG conversion tool to allow you to display documents natively in the web browser on any smartphone, tablet, PC or Mac. This docker image can be used to containerise BuildVu making it accessible via a REST API which is perfect for cloud deployments.
+[BuildVu](https://www.idrsolutions.com/buildvu/) is a PDF to HTML or SVG conversion tool to allow you to display documents natively in the web browser on any smartphone, tablet, PC or Mac. This docker image can be used to containerise BuildVu making it accessible via a REST API which is perfect for cloud deployments.
 
 ## Getting Started ##
 
