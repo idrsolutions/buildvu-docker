@@ -1,4 +1,4 @@
-FROM tomcat:9-jdk21
+FROM tomcat:9-jdk21-temurin-noble
 RUN apt-get update && apt-get install -y libreoffice unzip python3-pip --no-install-recommends && apt-get clean; \
  pip3 install jinja2 --break-system-packages; \
  rm -rf /usr/local/tomcat/webapps/*; \
